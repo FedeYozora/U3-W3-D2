@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,17 @@ export class LoginComponent {
     password: '',
   };
 
+  constructor(private userService: UserService) {}
+
   onSubmit() {
-    console.log('User email: ', this.user.username);
-    console.log('User password: ', this.user.password);
+    const user = this.userService.loginUser(
+      this.user.username,
+      this.user.password
+    );
+    if (user) {
+      console.log('Login effettuato con successo');
+    } else {
+      console.log('Nome utente o password errati');
+    }
   }
 }

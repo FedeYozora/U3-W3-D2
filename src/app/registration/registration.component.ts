@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-registration',
@@ -17,9 +18,11 @@ export class RegistrationComponent {
     bio: new FormControl(''),
     username: new FormControl('', Validators.required),
   });
+  constructor(private userService: UserService) {}
 
   onSubmit() {
     console.log(this.registerForm.value);
+    this.userService.registerUser(this.registerForm.value);
     console.log('Form correttamente inviato');
     this.registerForm.reset();
   }
